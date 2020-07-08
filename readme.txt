@@ -42,6 +42,8 @@ for how to use.
 1. Select Preset Images such as 'Number Tag', 'Sales Tag' etc
 2. Update content, font size and position.
 
+Git Repository
+https://github.com/meera/askteam-ShapeArt
 
 == Changelog ==
 
