@@ -12,7 +12,7 @@ import {usePreset} from './presets';
 registerBlockType('askteammate/shapeart', {
     title: __('ShapeArt', 'askteammate-shapeart'),
     description: __('Add shape with a text overlay — great to generate simple graphics', 'askteammate-shapeart'),
-    category: 'widgets',
+    category: 'ShapeArt',
 
    
     attributes: usePreset('Number Tag'),
