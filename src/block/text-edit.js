@@ -8,7 +8,6 @@ import { Text, Tspan } from '@wordpress/components';
 export default function TextEdit(props) { 
         const {className, attributes, setAttributes, context, clientId, backgroundColor, isSelected} = props;
 
-       console.log( 'Text  Edit Props', props);
 
         const {content, textColor,  childPositionX, childPositionY} = attributes;
 

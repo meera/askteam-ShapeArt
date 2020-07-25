@@ -3,7 +3,8 @@ Contributors: meerab1 (Meera Datey)
 Tags: shapes, sales tag, number tag, graphics, svg  
 Requires at least: 4.0  
 Tested up to: 5.4.2  
-Stable tag: 1.0
+Stable tag: 1.
+Requires PHP: 7.0
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +17,7 @@ You can customize attributes such as content, background  color and  size.
 
 This  is  our mantra -  
 "For complex graphical needs, hire a pro graphic designer.  
-For simple graphical need, use ShaeArt!"  
+For simple graphical need, use ShapeArt!"  
 
 Major features in ShapeArt include:
 
@@ -46,6 +47,9 @@ Git Repository
 https://github.com/meera/askteam-ShapeArt
 
 == Changelog ==
+= 1.0.1 =
+* Release Date July 18 2020*
+* Added Blob Shape
 
 = 1.0.0 =
 *Release Date - 4 July 2020*

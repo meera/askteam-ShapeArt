@@ -8,7 +8,7 @@ function bundle() {
   return gulp.src([
         "plugin.php",
         "license.txt",
-        "readme.md",
+        "readme.txt",
         "dist/**",
         "assets/**",
         "!node_modules/**",

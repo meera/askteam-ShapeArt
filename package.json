@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@wordpress/blocks": "^6.17.0",
+    "@wordpress/compose": "^3.19.2",
     "@wordpress/data": "^4.21.0",
     "@wordpress/i18n": "^3.13.0",
     "gulp-zip": "^5.0.1",

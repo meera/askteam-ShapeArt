@@ -317,7 +317,6 @@ const attributes = {
 
 export function usePreset(presetName) {
 
-  console.log('use preset ');
 
     const presetToSet = presets[presetName];
 
