@@ -5,34 +5,62 @@ import { PanelBody, RangeControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 import { TextControl, TextareaControl, ToggleControl } from '@wordpress/components';
 
-import { MediaPlaceholder } from "@wordpress/editor";
+import { MediaReplaceFlow } from '@wordpress/block-editor';
 
-import {ColorPaletteControl} from '@wordpress/block-editor';
+import { ColorPaletteControl } from '@wordpress/block-editor';
+
 export function SaveBlock(props) {
 
-    return <SaveBlob props={props} />
+    return <EditBlob props={props} />
+
+    
 }
 
 
 export function EditBlock(props) {
 
-    const { width, height, backgroundColor, textColor, content, fontSize, childPositionX, childPositionY, fillOpacity, gradient , gradientColor1, gradientColor2, shadow, isImage, clipbottom, clientId} = props.attributes;
+    const { width, height,  childPositionX, childPositionY, 
+        fillOpacity,  gradientColor1, gradientColor2,  
+        headshot, clientId, zoom } = props.attributes;
     let { points } = props.attributes;
     const { setAttributes } = props;
-    const { refresh } = props.attributes;
+    const { id, url, atl } = props.attributes;
+
     
-    if (points.length <= 0) {
-        createBlob(props);
-        points = [...points];
-        setAttributes({ points });
+    console.log(' Refresh ', props);
+
+    if (clientId.length <= 0) {
+        setAttributes({ clientId: props.clientId });
     }
 
-    if(clientId.length <= 0  ) {
-        setAttributes({ clientId: props.clientId } );
+    function onSelectImage({ id, url, atl }) {
+        console.log('image ', id, url);
+        setAttributes({ id, url, atl });
     }
-    console.log( ' Client id ', clientId);
 
+    function onSelectURL(url) {
+
+        console.log('image ', url);
+        setAttributes({ url });
+
+    }
+    function onUploadError(error) {
+        console.log('error');
+    }
     return (<>
+
+        <BlockControls>
+
+            <MediaReplaceFlow
+                mediaId={id}
+                mediaURL={url}
+                allowedTypes={['image']}
+                accept="image/*"
+                onSelect={onSelectImage}
+                onSelectURL={onSelectURL}
+                onError={onUploadError}
+            />
+        </BlockControls>
         <BlockControls
             controls={
                 [
@@ -41,10 +69,12 @@ export function EditBlock(props) {
                         title: __('Refresh', 'ShapeArt'),
                         onClick: () => {
 
-                            setAttributes({ points: [] });
+                            const newPoints = createBlob(props);
+                            console.log( ' new point ', newPoints);
+                            setAttributes({ points:   newPoints });
+                            //setAttributes({ points: [] });
                         }
                     }
-
 
                 ]
             }
@@ -56,51 +86,20 @@ export function EditBlock(props) {
                 <TextControl
                     label="Width"
                     value={width}
-                    onChange={(width) => { setAttributes({ width: width }) }}
+                    onChange={(width) => { setAttributes({ width: parseInt(width) }) }}
                 />
 
                 <TextControl
                     label="Height"
                     value={height}
-                    onChange={(height) => { setAttributes({ height: height }) }}
+                    onChange={(height) => { setAttributes({ height: parseInt( height) }) }}
                 />
 
             </PanelBody>
 
             <PanelBody title={__('Blob Color', 'askteammate-shapeart')}>
 
-                <ToggleControl
-                    checked={shadow}
-                    label="Shadow"
-                    onChange={() => { console.log('Inside Toggle shadow ', shadow); setAttributes({ shadow: !shadow }) }}
-                />
-                <ToggleControl
-                    checked={gradient}
-                    label="Gradient"
-                    onChange={() => { setAttributes({ gradient: !gradient }) }}
-                />
-                {gradient ? (
-                    <>
-                    <ColorPaletteControl
-                        value={gradientColor1}
-                        label="Color 1:"
-                        onChange={(gradientColor1) => { setAttributes({ gradientColor1 }) }}
-                    />
 
-                    <ColorPaletteControl
-                        value={gradientColor2}
-                        label="Color 2:"
-                        onChange={(gradientColor2) => { setAttributes({ gradientColor2 }) }}
-                    />
-                    </>
-                )
-                :
-                    <ColorPaletteControl
-                        value={backgroundColor}
-                        label="Background Color"
-                        onChange={(backgroundColor) => { setAttributes({ backgroundColor }) }}
-                    />
-                }
 
                 <RangeControl
                     label="Background Color Opacity"
@@ -109,70 +108,55 @@ export function EditBlock(props) {
                     min={0}
                     max={100}
                 />
-              
+
+                <ColorPaletteControl
+                    value={gradientColor1}
+                    label="Color 1:"
+                    onChange={(gradientColor1) => { setAttributes({ gradientColor1 }) }}
+                />
+                <ColorPaletteControl
+                    value={gradientColor2}
+                    label="Color 2:"
+                    onChange={(gradientColor2) => { setAttributes({ gradientColor2 }) }}
+                />
+
+
+
+
 
             </PanelBody>
+            <PanelBody title={__('Overlay', 'askteammate-shapeart')}>
 
 
 
-
-
-
-            <PanelBody title={__('Content', 'askteammate-shapeart')}>
-
-                 <ToggleControl
-                    checked={isImage}
-                    label="Image or Text"
-                    onChange={() => { setAttributes({ isImage: !isImage }) }}
+                <ToggleControl
+                    checked={headshot}
+                    label="Head Shot (Bottom crop only)"
+                    onChange={() => { setAttributes({ headshot: !headshot }) }}
                 />
-                {
-                    isImage ?  <>
 
-                    <ToggleControl
-                          checked={clipbottom}
-                          label="Clip Bottom"
-                          onChange={() => { setAttributes({ clipbottom: ! clipbottom }) }}
-                     />
-                    
-                    </>
-                    :
-                    <>
-                    <TextareaControl
-                    label="Content"
-                    value={content}
-                    onChange={(content) => setAttributes({ content })}
-
-                />
-                    <ColorPaletteControl
-                    value={textColor}
-                    label="Text Color"
-                    onChange={(textColor) => { setAttributes({ textColor }) }}
-                    />
-                    
-                
                 <RangeControl
-                    label="Font Size"
-                    value={fontSize}
-                    onChange={(fontSize) => setAttributes({ fontSize })}
-                    min={8}
-                    max={100}
+                    label="Zoom Image"
+                    value={zoom}
+                    onChange={(zoom) => { setAttributes({ zoom }) }}
+                    min={0}
+                    max={500}
                 />
 
-               
 
                 <TextControl
                     label="Inner Element X"
                     value={childPositionX}
-                    onChange={(childPositionX) => { setAttributes({ childPositionX: childPositionX }) }}
+                    onChange={(childPositionX) => { setAttributes(  {childPositionX: parseInt(childPositionX) }) }}
+
                 />
 
                 <TextControl
                     label="Inner Element Y"
                     value={childPositionY}
-                    onChange={(childPositionY) => { setAttributes({ childPositionY: childPositionY }) }}
+                    onChange={(childPositionY) => {  setAttributes({ childPositionY: parseInt(childPositionY) }) }}
                 />
-                </>
-                }
+
             </PanelBody>
 
 

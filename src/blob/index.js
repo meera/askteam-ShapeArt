@@ -15,27 +15,23 @@ registerBlockType('askteammate/blob', {
     category: 'ShapeArt',
 
    attributes: {
-       gradient: { type: 'boolean', default: true},
-        backgroundColor: { type: 'string', default: 'blue', selector: 'path', attribute: 'fill'},
-        gradientColor1 : { type: 'string', default: 'blue'},
-        gradientColor2: { type: 'string', defalt: 'acqua'},
-        height: { type: 'integer', default: 300, selector: 'svg' , attribute: "height"},
-        width: { type: 'integer', default: 300, selector: 'svg', attribute: 'width'},
-        childPositionX: { type: 'integer', default: 25 },
-        childPositionY: { type: 'integer', default: 50  },
-        isImage: { type: 'boolean', default: true},
-        content: { type: 'string', default: 'I am Joe!' },
-        textColor: { type: 'string' },
-        fontSize: { type: 'integer', default: 12 },
-        refresh: { type: 'boolean'},
-      //  fillOpacity: { type: 'number', default: 20,  selector: 'path', attribute: 'fill-opacity'},
-        fillOpacity: { type: 'number', default: 20},
-        shadow: { type: 'boolean', default: true},
+        gradientColor1 : { type: 'string', default: '#1b25b1'},
+        gradientColor2: { type: 'string', default: '#0ed1d8'},
+        height: { type: 'integer', default: 300},
+        width: { type: 'integer', default: 300},
+        childPositionX: { type: 'integer', default: 0},
+        childPositionY: { type: 'integer', default: 0  },
+        fillOpacity: { type: 'number', default: 60},
         clientId: { type: 'string', default: ""},
 
-        points: { type: 'array', default: []},
+        points: { type: 'array', default: [{"x":90,"y":50,"mx":84,"my":83},{"x":62,"y":12,"mx":84,"my":26},{"x":18,"y":26,"mx":30,"my":14},{"x":18,"y":74,"mx":7,"my":50},{"x":62,"y":88,"mx":52,"my":87},{"x":90,"y":50,"mx":84,"my":83}]},
         numberOfPoints: { type : 'integer', default: 5},
-        clipbottom: { type: 'boolean', default: true}
+        headshot: { type: 'boolean', default: true},
+        zoom: { type: 'number', default: 100},
+        // Image attriutes
+      id: {type: 'number' },
+      atl: { type: 'string',  default: 'HeadShot'},
+      url: { type: 'string',  default: 'https://storage.googleapis.com/shapeart-assets/Joe-Biden.png' }
    },
   
     edit: EditBlock,
